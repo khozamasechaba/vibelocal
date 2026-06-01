@@ -9,9 +9,9 @@ const categoryColors = {
 };
 
 const trustBadge = {
-  top: { label: "Top Organiser", color: "text-amber-600 bg-amber-50 border-amber-200" },
-  verified: { label: "Verified", color: "text-blue-600 bg-blue-50 border-blue-200" },
-  unverified: { label: "Unverified", color: "text-gray-500 bg-gray-50 border-gray-200" },
+  top: { label: "Verified Organiser", dot: "bg-amber-500", color: "text-amber-600 bg-amber-50 border-amber-200" },
+  verified: { label: "Verified Organiser", dot: "bg-blue-500", color: "text-blue-600 bg-blue-50 border-blue-200" },
+  unverified: { label: "Organiser Not Verified", dot: "bg-gray-400", color: "text-gray-500 bg-gray-50 border-gray-200" },
 };
 
 export default function EventCard({ event }) {
@@ -69,7 +69,8 @@ export default function EventCard({ event }) {
 
         {/* Trust badge */}
         <div className="mt-2">
-          <span className={`text-xs px-2 py-0.5 rounded border font-medium ${trust.color}`}>
+          <span className={`inline-flex items-center gap-1.5 text-xs px-2 py-0.5 rounded border font-medium ${trust.color}`}>
+            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${trust.dot}`} />
             {trust.label}
           </span>
         </div>

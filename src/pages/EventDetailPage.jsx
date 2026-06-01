@@ -5,23 +5,32 @@ import { events } from "../data/events";
 const trustConfig = {
   top: {
     label: "Top Organiser",
+    statusText: "Verified Organiser",
+    verified: true,
     icon: Award,
     color: "text-amber-600",
     bg: "bg-amber-50 border-amber-200",
+    statusColor: "bg-amber-500",
     desc: "Consistently delivers highly-rated events with verified identity.",
   },
   verified: {
     label: "Verified Organiser",
+    statusText: "Verified Organiser",
+    verified: true,
     icon: CheckCircle,
     color: "text-blue-600",
     bg: "bg-blue-50 border-blue-200",
+    statusColor: "bg-blue-500",
     desc: "Identity verified by VibeLocal. Good track record.",
   },
   unverified: {
     label: "Unverified",
+    statusText: "Organiser Not Verified",
+    verified: false,
     icon: Shield,
     color: "text-gray-500",
     bg: "bg-gray-50 border-gray-200",
+    statusColor: "bg-gray-400",
     desc: "This organiser hasn't been verified yet. Attend with awareness.",
   },
 };
@@ -207,22 +216,32 @@ export default function EventDetailPage() {
         </div>
 
         {/* Organiser trust */}
-        <div className={`rounded-2xl border p-4 mb-4 flex items-start gap-3 ${trust.bg}`}>
-          <img
-            src={organiser.avatar}
-            alt={organiser.name}
-            className="w-10 h-10 rounded-full object-cover shrink-0"
-          />
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-semibold text-gray-900 text-sm">{organiser.name}</span>
-              <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-white border ${trust.color} ${trust.bg}`}>
-                <TrustIcon size={11} />
-                {trust.label}
-              </span>
+        <div className={`rounded-2xl border p-4 mb-4 ${trust.bg}`}>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Organiser</p>
+          <div className="flex items-start gap-3">
+            <div className="relative shrink-0">
+              <img
+                src={organiser.avatar}
+                alt={organiser.name}
+                className="w-11 h-11 rounded-full object-cover"
+              />
+              {/* Status dot */}
+              <span className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white ${trust.statusColor}`} />
             </div>
-            <p className="text-xs text-gray-500 mt-0.5">{organiser.eventsHosted} events hosted</p>
-            <p className="text-xs text-gray-600 mt-1">{trust.desc}</p>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap mb-1">
+                <span className="font-semibold text-gray-900 text-sm">{organiser.name}</span>
+                <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-white border ${trust.color} ${trust.bg}`}>
+                  <TrustIcon size={11} />
+                  {trust.label}
+                </span>
+              </div>
+              {/* Explicit verification statement */}
+              <p className={`text-sm font-semibold mb-1 ${trust.verified ? trust.color : "text-gray-500"}`}>
+                {trust.statusText}
+              </p>
+              <p className="text-xs text-gray-500">{organiser.eventsHosted} events hosted · {trust.desc}</p>
+            </div>
           </div>
         </div>
 
