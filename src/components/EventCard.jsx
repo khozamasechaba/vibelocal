@@ -1,4 +1,5 @@
-import { MapPin, Users, Star } from "lucide-react";
+import { useState } from "react";
+import { MapPin, Users, Star, Bookmark } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const categoryColors = {
@@ -16,9 +17,15 @@ const trustBadge = {
 
 export default function EventCard({ event }) {
   const navigate = useNavigate();
+  const [saved, setSaved] = useState(false);
   const { vibeCheck, organiser } = event;
   const trust = trustBadge[organiser.trustStatus];
   const topTags = vibeCheck.tags.slice(0, 2);
+
+  function handleSave(e) {
+    e.stopPropagation();
+    setSaved((s) => !s);
+  }
 
   return (
     <div
@@ -31,7 +38,17 @@ export default function EventCard({ event }) {
         <span className={`absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full ${categoryColors[event.category]}`}>
           {event.category}
         </span>
-        <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-bold px-2.5 py-1 rounded-full">
+        {/* Save button */}
+        <button
+          onClick={handleSave}
+          className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center shadow transition-all duration-150 ${
+            saved ? "bg-purple-600 text-white" : "bg-white/90 backdrop-blur-sm text-gray-600 hover:bg-white"
+          }`}
+          aria-label={saved ? "Unsave event" : "Save event"}
+        >
+          <Bookmark size={14} fill={saved ? "white" : "none"} />
+        </button>
+        <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-bold px-2.5 py-1 rounded-full">
           {event.price}
         </span>
       </div>
@@ -47,7 +64,6 @@ export default function EventCard({ event }) {
 
         {/* Vibe Check teaser */}
         <div className="border-t border-gray-100 pt-3 flex items-center justify-between">
-          {/* Score + tags */}
           <div className="flex items-center gap-2 flex-wrap">
             <div className="flex items-center gap-1 bg-purple-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
               <Star size={11} fill="white" />
@@ -59,8 +75,6 @@ export default function EventCard({ event }) {
               </span>
             ))}
           </div>
-
-          {/* Crowd */}
           <div className="flex items-center gap-1 text-xs text-gray-500 shrink-0 ml-2">
             <Users size={13} />
             <span>{vibeCheck.crowdGoing} going</span>
