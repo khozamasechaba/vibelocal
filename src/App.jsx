@@ -4,7 +4,7 @@ import EventDetailPage from "./pages/EventDetailPage";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/vibelocal">
       <Routes>
         <Route path="/" element={<EventsPage />} />
         <Route path="/event/:id" element={<EventDetailPage />} />
