@@ -21,11 +21,15 @@ export default function EventsPage() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">VibeLocal</h1>
-              <div className="flex items-center gap-1 text-xs text-gray-500">
+            <div className="flex items-center gap-2">
+              {/* Logo pill */}
+              <div className="flex items-center gap-1.5 bg-gray-900 text-white px-3 py-1.5 rounded-full">
+                <span className="text-purple-400 text-base leading-none">⚡</span>
+                <span className="text-sm font-semibold tracking-tight">vibelocal</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-gray-500 mt-0.5">
                 <MapPin size={11} />
-                <span>Johannesburg &amp; Cape Town</span>
+                <span>Joburg &amp; Cape Town</span>
               </div>
             </div>
             <div className="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-sm">
